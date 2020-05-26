@@ -1,0 +1,1 @@
+Interactive data dashboard based on the sentiment analysis of tweets about US Airlines built using streamlit and python. 
