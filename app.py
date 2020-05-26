@@ -87,3 +87,15 @@ if len(choice) > 0:
     breakdown_type = st.sidebar.selectbox('Visualization type', ['Pie chart', 'Bar plot', ], key='3')
     fig_3 = make_subplots(rows=1, cols=len(choice), subplot_titles=choice)
 
+    if breakdown_type == 'Bar plot':
+        for i in range(1):
+            for j in range(len(choice)):
+                fig_3.add_trace(
+                    go.Bar(x=plot_sentiment(choice[j]).Sentiment, y=plot_sentiment(choice[j]).Tweets, showlegend=False),
+                    row=i+1, col=j+1
+                )
+        fig_3.update_layout(height=600, width=800)
+        st.plotly_chart(fig_3)
+    else:
+        fig_3 = make_subplots(rows=1, cols=len(choice), specs=[[{'type':'domain'}]*len(choice)], subplot_titles=choice)
+
