@@ -72,4 +72,18 @@ if not st.sidebar.checkbox("Close", True, key='2'):
         st.plotly_chart(fig_2)
 
 
+@st.cache(persist=True)
+def plot_sentiment(airline):
+    df = data[data['airline']==airline]
+    count = df['airline_sentiment'].value_counts()
+    count = pd.DataFrame({'Sentiment':count.index, 'Tweets':count.values.flatten()})
+    return count
+
+
+st.sidebar.subheader("Breakdown airline by sentiment")
+choice = st.sidebar.multiselect('Pick airlines', ('US Airways','United','American','Southwest','Delta','Virgin America'))
+if len(choice) > 0:
+    st.subheader("Breakdown airline by sentiment")
+    breakdown_type = st.sidebar.selectbox('Visualization type', ['Pie chart', 'Bar plot', ], key='3')
+    fig_3 = make_subplots(rows=1, cols=len(choice), subplot_titles=choice)
 
